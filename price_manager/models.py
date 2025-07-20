@@ -2,6 +2,8 @@ from django.db import models
 import datetime
 import uuid
 
+from django.urls import reverse
+
 # Create your models here.
 
 
@@ -16,6 +18,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("category-detail", kwargs={"pk": self.pk})
 
 
 class Commodity(models.Model):
@@ -33,6 +38,9 @@ class Commodity(models.Model):
 
     def __str__(self):
         return f"{self.category.name} - {self.name}"
+
+    def get_absolute_url(self):
+        return reverse("commodity-detail", kwargs={"pk": self.pk})
 
 
 class CommodityPrices(models.Model):
