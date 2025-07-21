@@ -1,14 +1,20 @@
+from typing import Annotated
 from fastapi import FastAPI
-from .routers import categories
-from app.models import base
-from app.database import engine
+from contextlib import asynccontextmanager
+from .models import create_db_and_tables
+from .api import categories
 
-app = FastAPI()
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+app = FastAPI(lifespan=lifespan)
+
+
+# Code below omitted 👇
 app.include_router(categories.router)
-
-
-base.BaseModel.metadata.create_all(bind=engine)
 
 
 @app.get("/")

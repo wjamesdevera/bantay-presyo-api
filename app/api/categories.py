@@ -1,50 +1,21 @@
-from typing import List
 from fastapi import APIRouter
-from fastapi.routing import APIRoute
 from datetime import datetime
-from pydantic import BaseModel
+from fastapi import status
+from app.schemas.category import CategoryIn, CategoryOut
+from app.services import category as category_service
+from app.models import SessionDep
 
 router = APIRouter(
-    prefix="/categories"
+    prefix="/categories",
 )
 
 
-class Category(BaseModel):
-    id: int
-    name: str
-    createdAt: datetime
-    updatedAt: datetime
-
-
-sample_categories: List[Category] = [
-    {
-        "id": 1,
-        "name": "Lowland Vegetables",
-        "createdAt": datetime.now(),
-        "updatedAt": datetime.now()
-    },
-    {
-        "id": 2,
-        "name": "Lowland Vegetables",
-        "createdAt": datetime.now(),
-        "updatedAt": datetime.now()
-    },
-    {
-        "id": 3,
-        "name": "Lowland Vegetables",
-        "createdAt": datetime.now(),
-        "updatedAt": datetime.now()
-    },
-]
-
-
-def create_response_format(data: dict):
-    return {
-        "success": True,
-        "data": data,
-    }
-
-
 @router.get("/")
-def get_categories() -> List[Category]:
-    return sample_categories
+def get_categories(session: SessionDep):
+    return category_service.list_categories(session=session)
+
+
+@router.post("/", status_code=status.HTTP_201_CREATED)
+def create_category(category: CategoryIn, session: SessionDep):
+    new_category = category_service.create_category(category, session)
+    return new_category
