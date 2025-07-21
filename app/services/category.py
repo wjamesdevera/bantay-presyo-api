@@ -21,3 +21,8 @@ def list_categories(session: Session):
 def get_category(id: int, session: Session):
     category = session.get(Category, id)
     return category
+
+
+def delete_category(category: Category, session: Session):
+    session.delete(category)
+    session.commit()

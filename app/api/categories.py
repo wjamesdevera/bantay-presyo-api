@@ -29,3 +29,16 @@ def category_detail(id: int, session: SessionDep) -> CategoryOut:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
     return category
+
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_category(id: int, session: SessionDep):
+    category = category_service.get_category(id, session)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+
+    category_service.delete_category(category, session)
+    return {
+        "success": True
+    }
