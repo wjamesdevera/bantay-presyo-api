@@ -7,22 +7,14 @@ A REST API for accessing Philippine Agricultural products market price
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
 ```bash
-pip install foobar
+git clone git@github.com:wjamesdevera/bantay-presyo-api.git
 ```
 
 ## Usage
 
 ```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+pip install -r requirements.txt
+python manage.py runserver
 ```
 
 ## Contributing
