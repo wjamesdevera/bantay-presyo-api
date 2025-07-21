@@ -31,6 +31,17 @@ def category_detail(id: int, session: SessionDep) -> CategoryOut:
     return category
 
 
+@router.put("/{id}", response_model=CategoryOut)
+def update_category(id: int, category: CategoryIn, session: SessionDep) -> CategoryOut:
+    old_category = category_service.get_category(id, session)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+    new_category = category_service.update_category(
+        old_category, category, session)
+    return new_category
+
+
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_category(id: int, session: SessionDep):
     category = category_service.get_category(id, session)

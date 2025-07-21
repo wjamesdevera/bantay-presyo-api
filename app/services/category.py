@@ -23,6 +23,13 @@ def get_category(id: int, session: Session):
     return category
 
 
+def update_category(category: Category, updated_category: CategoryIn, session: Session):
+    category.name = updated_category.name
+    session.commit()
+    session.refresh(category)
+    return category
+
+
 def delete_category(category: Category, session: Session):
     session.delete(category)
     session.commit()
