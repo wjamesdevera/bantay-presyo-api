@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from datetime import datetime
 from fastapi import status
 from app.schemas.category import CategoryIn, CategoryOut
@@ -20,3 +20,12 @@ def get_categories(session: SessionDep) -> List[CategoryOut]:
 def create_category(category: CategoryIn, session: SessionDep) -> CategoryOut:
     new_category = category_service.create_category(category, session)
     return new_category
+
+
+@router.get("/{id}", response_model=CategoryOut)
+def category_detail(id: int, session: SessionDep) -> CategoryOut:
+    category = category_service.get_category(id, session)
+    if not category:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+    return category

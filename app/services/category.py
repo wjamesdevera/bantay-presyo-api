@@ -16,3 +16,8 @@ def create_category(category, session: Session):
 def list_categories(session: Session):
     categories = session.exec(select(Category)).all()
     return categories
+
+
+def get_category(id: int, session: Session):
+    category = session.get(Category, id)
+    return category
