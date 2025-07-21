@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter
 from datetime import datetime
 from fastapi import status
@@ -11,11 +12,11 @@ router = APIRouter(
 
 
 @router.get("/")
-def get_categories(session: SessionDep):
+def get_categories(session: SessionDep) -> List[CategoryOut]:
     return category_service.list_categories(session=session)
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_category(category: CategoryIn, session: SessionDep):
+def create_category(category: CategoryIn, session: SessionDep) -> CategoryOut:
     new_category = category_service.create_category(category, session)
     return new_category
