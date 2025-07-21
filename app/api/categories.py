@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/", response_model=CategoryOut)
 def get_categories(session: SessionDep) -> List[CategoryOut]:
     return category_service.list_categories(session=session)
 
