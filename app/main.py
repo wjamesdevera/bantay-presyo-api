@@ -1,4 +1,3 @@
-from typing import Annotated
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from .models import create_db_and_tables
@@ -9,6 +8,7 @@ from .api import categories
 async def lifespan(app: FastAPI):
     create_db_and_tables()
     yield
+
 
 app = FastAPI(lifespan=lifespan)
 
