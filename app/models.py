@@ -12,14 +12,8 @@ engine = create_engine(sqlite_url, connect_args=connect_args)
 
 
 class Category(SQLModel, table=True):
-    __tablename__ = "categories"
-    id: int | None = Field(
-        default=None,
-        primary_key=True
-    )
-    name: str = Field(
-        index=True
-    )
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
     created_at: datetime
     updated_at: datetime
 
@@ -27,14 +21,8 @@ class Category(SQLModel, table=True):
 
 
 class Commodity(SQLModel, table=True):
-    __tablename__ = "commodities"
-    id: str | None = Field(
-        default=uuid.uuid4,
-        primary_key=True
-    )
-    name: str = Field(
-        index=True
-    )
+    id: str | None = Field(default=uuid.uuid4, primary_key=True)
+    name: str = Field(index=True)
     category_id: int | None = Field(default=None, foreign_key="categories.id")
     category: Category | None = Relationship(back_populates="commodities")
     created_at: datetime
