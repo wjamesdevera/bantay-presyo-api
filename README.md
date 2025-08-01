@@ -14,7 +14,8 @@ git clone git@github.com:wjamesdevera/bantay-presyo-api.git
 
 ```python
 pip install -r requirements.txt
-python manage.py runserver
+fastapi run app/main.py
+
 ```
 
 ## Contributing
@@ -26,4 +27,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT]("./LICENSE.txt")
