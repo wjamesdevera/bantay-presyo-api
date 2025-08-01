@@ -4,7 +4,7 @@ from datetime import datetime
 from fastapi import status
 from app.schemas.category import CategoryIn, CategoryOut
 from app.services import category as category_service
-from app.models import SessionDep
+from app.db import SessionDep
 
 router = APIRouter(
     prefix="/categories",
@@ -27,7 +27,8 @@ def category_detail(id: int, session: SessionDep) -> CategoryOut:
     category = category_service.get_category(id, session)
     if not category:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+        )
     return category
 
 
@@ -36,9 +37,9 @@ def update_category(id: int, category: CategoryIn, session: SessionDep) -> Categ
     old_category = category_service.get_category(id, session)
     if not category:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
-    new_category = category_service.update_category(
-        old_category, category, session)
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+        )
+    new_category = category_service.update_category(old_category, category, session)
     return new_category
 
 
@@ -47,9 +48,8 @@ def delete_category(id: int, session: SessionDep):
     category = category_service.get_category(id, session)
     if not category:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+            status_code=status.HTTP_404_NOT_FOUND, detail="Item not found"
+        )
 
     category_service.delete_category(category, session)
-    return {
-        "success": True
-    }
+    return {"success": True}
