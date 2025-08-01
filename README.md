@@ -17,9 +17,6 @@ pip install -r requirements.txt
 fastapi run app/main.py
 
 ```
-```
-
-```
 
 ## Contributing
 
