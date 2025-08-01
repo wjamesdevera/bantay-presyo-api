@@ -16,6 +16,7 @@ app = FastAPI(lifespan=lifespan)
 
 # Code below omitted 👇
 app.include_router(categories.router)
+app.include_router(commodity.router)
 
 
 @app.get("/")
