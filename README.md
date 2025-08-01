@@ -1,10 +1,8 @@
 # Bantay Presyo API
 
-A REST API for accessing Philippine Agricultural products market price
+A REST API for accessing the Philippine Agricultural products market price
 
 ## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
 ```bash
 git clone git@github.com:wjamesdevera/bantay-presyo-api.git
