@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from app.db import create_db_and_tables
+from .db import create_db_and_tables
 from .api import categories, commodity
 
 
