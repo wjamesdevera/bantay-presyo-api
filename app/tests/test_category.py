@@ -1,7 +1,7 @@
 from app.models import Category
 import pytest
 from fastapi.testclient import TestClient
-from fastapi import responses, status
+from fastapi import status
 from sqlmodel import Session, create_engine, SQLModel
 from sqlmodel.pool import StaticPool
 from ..db import get_session
