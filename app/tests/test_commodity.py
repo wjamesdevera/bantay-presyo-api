@@ -1,4 +1,3 @@
-from app.api import categories
 from app.models import Commodity
 import pytest
 from fastapi.testclient import TestClient
@@ -133,7 +132,7 @@ def test_create_commodity_that_exists(client: TestClient, session: Session):
     assert response.status_code == status.HTTP_409_CONFLICT
 
 
-def test_read_categories(client: TestClient, session: Session):
+def test_read_commodities(client: TestClient, session: Session):
     generate_test_categories(session)
     generate_test_commodities(session)
 
@@ -145,3 +144,18 @@ def test_read_categories(client: TestClient, session: Session):
     for i, commodity in enumerate(commodities):
         assert data[i]["name"] == commodity["name"]
         assert data[i]["specification"] == commodity["specification"]
+
+
+def test_read_single_commodity(client: TestClient, session: Session):
+    generate_test_categories(session)
+    generate_test_commodities(session)
+
+    response = client.get("/commodities/1")
+    data = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert data["id"] is not None
+    assert data["name"] == commodities[0]["name"]
+    assert data["specification"] == commodities[0]["specification"]
+    assert data["created_at"] is not None
+    assert data["updated_at"] is not None
